@@ -25,6 +25,8 @@ Lists are the simplest data structure to work with and are an excellent tool for
 
 There are several objects for building lists, including join, **pack**, **pak**, **prepend**, and **append**, each with different suggested use cases; **join** is the most general and can handle most tasks. The **zl.group** object can be used to build up lists of arbitrary sizes via its argument. Alternatively, give it no arguments and send a bang to output the current items as a list. 
 
+![Image1](https://drive.google.com/drive/folders/1MC-iLjXCmDaj2R_8ai955MvhBn__d8i4/zlgroup.png)
+
 Learn to use the **zl** objects with **vexpr**. It is totally worth your time and will enable you  to do much more. The **vexpr** object isn’t just for obvious math operations. You can also do things such as  finding the number of values above a given threshold: **vexpr $f1>20** into **zl.sum**. Counting the number of values inside a range is similarly easy: Connect **vexpr $f1 > 20 && $f2 < 40** to **zl.sum**. (Alternatively, you could multiply instead of using &&, and there are interesting uses for this). 
 
 The **dict** object is the most flexible data structure in Max. It allows you to store key/value pairs in a named location. The value in each pair can be a single value, a 1-D array (a list), or another dictionary, so a single dict can contain many sub-dicts. Several objects in Max store their state as a dictionary and will output the name of this dictionary when you send the appropriate message; for example, you can use “linkdump” for live.step, and “dump_to_dict” for live.grid. Dictionaries make it easy to share large amounts of data between different parts of your patch without having to send (i.e., make a copy of) the actual data. Dict uses the JSON (JavaScript Object Notation) format making it  easy to access from within JavaScript; some users rarely use the built-in dict objects, preferring instead to work with dict inside of JavaScript.
@@ -50,9 +52,13 @@ Come Up with  your own naming conventions. It is common to insert your initials 
 
 The way you name your **send** and **receive** objects and the protocols you establish by putting **line** or **route** after the **receive** objects can basically establish your own scripting language, which you would use in **qlist** or semicolon message boxes, so practice this intentionally and consistently. For example, if you have a **receive** named Voice1 connected to a **route** accepting parameters like Hz and amp, and with a **line~** on each of its outlets, you can create your own readable code on top of Max, and the transition time for **line~** is even optional. To fade Voice1 to zero you could just bang a message box containing:
 
+![Image2](https://drive.google.com/drive/folders/1MC-iLjXCmDaj2R_8ai955MvhBn__d8i4/voice1.png)
+
 You can also send multiple messages at a time using this syntax. Use semicolons to separate messages going to different receives and use commas to separate messages sent to the same receive. You might even connect a **print Huh?** object to the last outlet of **route** so that if you mistype any commands, they appear in the Max Console like any other error message, preceded by the argument “Huh?”— just a shortened version of “I don’t understand the command: _______.”
 
 Many programmers like to have a straight line down the left side of the patch, if possible. Objects should be ordered top-to-bottom in the order they operate. The only patch cords that go up are for feedback; many times these are also the only segmented patch cords.
+
+![Image3](https://drive.google.com/drive/folders/1MC-iLjXCmDaj2R_8ai955MvhBn__d8i4/remotemessage.png)
 
 --From: Estevan Carlos Benson, Seth Boney, Peter McColluch, Jeff Morris, Robin Parmar, John Sharp, Michael Sperone, and Michael Zbyszyński.
 
@@ -106,9 +112,13 @@ When creating a **coll** object, immediately set it to save with the patcher (vi
 ## Favorite Tools
 Some tools in Max that users are quick to recommend: Use the floating Clue Window to see a running display of help related to the objects you’re working on. Use Projects feature to collect and organize all the files required for your patch. Unlock help patchers and copy any useful code out of them, for example, the **umenu** object and menu and poll messages that are always useful with a **hi** object.
 
+![Image4](https://drive.google.com/drive/folders/1MC-iLjXCmDaj2R_8ai955MvhBn__d8i4/umenuhi.png)
+
 Gen is learnable and well worth your while; it is useful for many things big and small. When you start doing conditional operations in **gen~**, **codebox** quickly becomes useful. You will be able to handle complex flow control better. You can always copy from the Code window (the C button on right sidebar).
 
 On the other side of things, you may want to avoid using the Audio On/Off and Gain controls built into every patcher window because you could end up with mismatched gain levels across patches and hard-code the wrong volume settings to balance them. This can be especially problematic for newcomers. If you want to ensure your **dac~** toggles are always updated, no matter where audio is turned on or off, connect a **dspstate~** object to the toggle.
+
+![Image5](https://drive.google.com/drive/folders/1MC-iLjXCmDaj2R_8ai955MvhBn__d8i4/dspstate.png)
 
 --From: Jjuulien Bbaayle, Jeffrey Clark, Joshua Mark Goldberg, Kevin Kripper, Peter McCulloch, Jeff Morris, and Robin Parmar.
 
@@ -121,9 +131,13 @@ Preset systems can work as a way of organizing real-time compositions, but remem
 
 That being said, it is always a good idea to centrally initialize your patch. One approach is to use a single message box with all the pertinent **receive** object names and their initial values (this may be redundant if you give objects default arguments, but it’s an investment in safety and reliability):
 
+![Image6](https://drive.google.com/drive/folders/1MC-iLjXCmDaj2R_8ai955MvhBn__d8i4/savestate.png)
+
 You can also do this with **patcherargs** and **route**.[^3] This also allows you to use **dict**, which can store an abstraction’s internal state. The **dict.iter** object will output a series of key and value pairs for one level of a dict; if you have several instances of an abstraction which share the same initial values, consider using a shared dict to initialize them. This can be especially helpful for abstractions that accept many attributes. For GUI objects with the **parameter_enable** feature activated you can set initial values in each object’s Inspector.
 
 Use **loadbang** or **loadmess** to trigger the initialization on load. Then you can bang them or send a “loadbang” message to a **thispatcher** object to reset your patch at any time.
+
+![Image7](https://drive.google.com/drive/folders/1MC-iLjXCmDaj2R_8ai955MvhBn__d8i4/loadbangmess.png)
 
 --From: Brian Del Toro, Peter McCulloch, and Robin Parmar.
 
@@ -183,6 +197,8 @@ In a similar spirit, besides external objects, you might also avoid customizing 
 ## poly~
 Beyond letting you load a patcher as an object box in another patch, **poly~** gives you powerful dynamic control to load multiple instances of a patch, change patches, and control processing and communications, all on the fly. If your project needs to scale to different numbers of voices, **poly~** makes them easy to control, saves space, and can save CPU power. Even if each instance needs to do slightly different things, you can pipe in the individual variables with the “target” message. The **thispoly~** object outputs a unique voice number for each instance when it receives a bang. Use it with **zl.nth** to pick out the corresponding member of a list of values, or use it with **sprintf** to set a **receive** object to a unique value.
 
+![Image8](https://drive.google.com/drive/folders/1MC-iLjXCmDaj2R_8ai955MvhBn__d8i4/poly.png)
+
 Signal rate **poly~** is not to be confused with the control rate **poly** object. For polyphony, **poly** makes its data routing decisions based on when a note is released rather than when its amplitude envelope has finished sounding; it relies on the receiving synthesizer to know what to do in pertinent cases. This is especially problematic if notes have different release times.
 
 In the spirit of “numbers are numbers,” **poly~** is useful outside of handling polyphonic instrument sounds. Remember that you can use it when you need multiple copies of any kind of patch, even with MIDI objects and Jitter objects. Use it to load different patches on the fly for major scene changes. With clever naming and routing schemes, you can use **poly~** for processing in series rather than in parallel, where each instance passes its output to the next instance, to perform sequential transformations.
@@ -233,6 +249,8 @@ Test recordings are helpful for  building, rehearsing, and evaluating pieces. If
 
 Build controls that you can easily access at any  time to reset your patch, mute audio, or perform other kinds of “panic button” features. If you have feedback delays in your piece, you can use the “clear” message to reset them. Try  to enable jumping to different points in your piece for the sake of rehearsal and sound checking. This can  be tricky, because time-based media doesnt  always handle  the same as stage lighting cues. When building a GUI for performer, standalone installation, or app, don't forget to create a control to open the Audio Status window (bang an “open” message into **dac~**). Even if you leave the default menus in place, the Audio Status window isn’t likely to be where a nervous troubleshooting performer might  look. 
 
+![Image9](https://drive.google.com/drive/folders/1MC-iLjXCmDaj2R_8ai955MvhBn__d8i4/opendac.png)
+
 Keep the performance interface simple. If cues are advanced sequentially, consider using the spacebar to trigger the advance. Clicking on cue numbers with a mouse or trackpad requires extra attentional bandwidth.
 
 Consider t some things that might change with your piece from one performance to another. For example, in pieces that rely on reverb, provide a trim control for the input or output of the reverb so that you can freely adjust them to fit the acoustics of each venue. This can also be helpful with delays. 
@@ -243,6 +261,10 @@ Remember that Max runs on two platforms. If your patch doesn’t work on one pla
 
 And finally, the “dirty” trick, attributed to Cort Lippe: Set the dirty bit in a patcher, either by making any change to the patch or by sending the message “dirty” to **thispatcher**. This way, if you accidentally close the patch or quit Max in the heat of a performance, Max will present a “Save changes…?” dialog box instead of closing.
 
+![Image10](https://drive.google.com/drive/folders/1MC-iLjXCmDaj2R_8ai955MvhBn__d8i4/dirtytrick.png)
+
+![Image11](https://drive.google.com/drive/folders/1MC-iLjXCmDaj2R_8ai955MvhBn__d8i4/dirtytricksave.png)
+
 --From: Peter McCulloch, Cort Lippe, Barry Moon, Jeff Morris, and Robin Parmar.
 
 
@@ -250,11 +272,17 @@ And finally, the “dirty” trick, attributed to Cort Lippe: Set the dirty bit 
 # More Specific Tips
 When using **function** for amplitude envelopes: your  amplitude envelope probably starts at 0., which would cause a click if you triggered the amplitude envelope again before the first envelope had finished. There are a number of ways to skip that first 0. Here is  the leading approach from the discussion: Set the outputmode attribute of **function** to “list” and connect **zl.slice 2** between **function** and **line~**, using the right outlet of **zl.slice**. If you’re using **curve~** instead of **line~**, use **zl.slice 3**.
 
+![Image12](https://drive.google.com/drive/folders/1MC-iLjXCmDaj2R_8ai955MvhBn__d8i4/functionclick.png)
+
 When you need to directly control the location of playback for sampling, consider implementing playback in terms of samples. This  logic is (often) easier to reason with, even though the numbers will get big. For example, connecting **sig~ 1** to **+=~** to **pong~ @mode wrap** to **index~** will give you looping playback positions, and you can set the start and end samples in the second and third inlets of **pong~**, respectively. The value of **sig~** is the playback speed. (Next, consider using **gen~** in lieu of **index~** for playback because **index~** doesn’t interpolate between samples.) You can also use **clip~** instead of **pong~** to play once without looping; bang **+=~** to restart playback manually. For recording, use **poke~** instead of **index~**.
+
+![Image13](https://drive.google.com/drive/folders/1MC-iLjXCmDaj2R_8ai955MvhBn__d8i4/sampleplayback.png)
 
 Instead of switching between multiple signals, see if you can use a weighted sum, basically crossfading between them instead. For example, rathern than  choosing between three LFO shapes via **selector~**, combine them using **matrix~ 3 1 0**. This works in many  places! Try using **matrix~** with **matrixctrl**, with the dialmode attribute enabled for flexible signal routing.
 
 Here are two interesting feedback suppression techniques: Use signal-rate objects to run your signal through this arithmetic: y = x / (1 + 0.28*x^2). It asymptotically approaches zero above a certain input gain instead of hard clipping. 
+
+![Image14](https://drive.google.com/drive/folders/1MC-iLjXCmDaj2R_8ai955MvhBn__d8i4/feedbacksupression.png)
 
 A more transparent technique is to use the smoothed amplitude envelope of the audio output(s) to control the amount of frequency shift applied to each output via a **freqshift~** object. You can use the **clip~** and **scale~** technique to keep it from kicking in below a certain level. By shifting the spectrum of the signal, the feedback is dispersed. (This is a John Chowning trick, if I recall correctly.)
 
