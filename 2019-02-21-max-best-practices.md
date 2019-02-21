@@ -25,7 +25,7 @@ Lists are the simplest data structure to work with and are an excellent tool for
 
 There are several objects for building lists, including join, **pack**, **pak**, **prepend**, and **append**, each with different suggested use cases; **join** is the most general and can handle most tasks. The **zl.group** object can be used to build up lists of arbitrary sizes via its argument. Alternatively, give it no arguments and send a bang to output the current items as a list. 
 
-![Image1](https://drive.google.com/drive/folders/1MC-iLjXCmDaj2R_8ai955MvhBn__d8i4/Image3.jpg)
+![Image1](https://drive.google.com/file/d/1XRoTIkuXwyYSUjkHOYaA500VpwSR70RY/view)
 
 Learn to use the **zl** objects with **vexpr**. It is totally worth your time and will enable you  to do much more. The **vexpr** object isn’t just for obvious math operations. You can also do things such as  finding the number of values above a given threshold: **vexpr $f1>20** into **zl.sum**. Counting the number of values inside a range is similarly easy: Connect **vexpr $f1 > 20 && $f2 < 40** to **zl.sum**. (Alternatively, you could multiply instead of using &&, and there are interesting uses for this). 
 
