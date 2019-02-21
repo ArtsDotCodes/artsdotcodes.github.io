@@ -1,4 +1,4 @@
-baseurl = "https://groupname.gitlab.io/blog/" #edit this to reflect your project group name
+baseurl = "https://artsdotcode.github.io/articles/" #edit this to reflect your project group name
 contentdir    = "content"
 layoutdir     = "layouts"
 publishdir    = "public"
@@ -14,7 +14,7 @@ pygmentCodeFences = true
 #googleAnalytics = "XXX"
 
 [Params]
-  subtitle = "HomePage Tagline" #edit this to your liking. It appears in large bold font on the site's homepage
+  subtitle = "Arts.Codes" #edit this to your liking. It appears in large bold font on the site's homepage
   logo = "img/avatar-icon.png"
   favicon = "img/favicon.ico"
   dateFormat = "January 2, 2006"
@@ -34,12 +34,12 @@ pygmentCodeFences = true
 #  desc = "Hexagon"
 
 [Author]
-  name = "Author Name"
-  email = "username@domain.com"
-  facebook = "username"
-  gitlab = "username"
-  linkedin = "username"
-  medium = "username"
+  name = "ArtsDotCodes"
+  #email = "username@domain.com"
+  #facebook = "username"
+  #gitlab = "username"
+  #linkedin = "username"
+  #medium = "username"
 #Add additional Social Media links here
 
 
