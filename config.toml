@@ -1,0 +1,91 @@
+baseurl = "https://groupname.gitlab.io/blog/" #edit this to reflect your project group name
+contentdir    = "content"
+layoutdir     = "layouts"
+publishdir    = "public"
+title = "Site Title" #edit this to your desired site title. This appears in the top-left corner of the site and links to the homepage
+canonifyurls  = true
+
+DefaultContentLanguage = "en"
+theme = "beautifulhugo"
+metaDataFormat = "yaml"
+pygmentsUseClasses = true
+pygmentCodeFences = true
+#disqusShortname = "XXX"
+#googleAnalytics = "XXX"
+
+[Params]
+  subtitle = "HomePage Tagline" #edit this to your liking. It appears in large bold font on the site's homepage
+  logo = "img/avatar-icon.png"
+  favicon = "img/favicon.ico"
+  dateFormat = "January 2, 2006"
+  commit = false
+  rss = true #make sure this is 'true' to allow RSS tracking
+  comments = true
+#  gcse = "012345678901234567890:abcdefghijk" # Get your code from google.com/cse. Make sure to go to "Look and Feel" and change Layout to "Full Width" and Theme to "Classic"
+
+#[[Params.bigimg]]
+#  src = "img/triangle.jpg"
+#  desc = "Triangle"
+#[[Params.bigimg]]
+#  src = "img/sphere.jpg"
+#  desc = "Sphere"
+#[[Params.bigimg]]
+#  src = "img/hexagon.jpg"
+#  desc = "Hexagon"
+
+[Author]
+  name = "Author Name"
+  email = "username@domain.com"
+  facebook = "username"
+  gitlab = "username"
+  linkedin = "username"
+  medium = "username"
+#Add additional Social Media links here
+
+
+
+
+#Add or remove menu items:
+[[menu.main]]
+    name = "Blog"
+    url = ""
+    weight = 1
+
+[[menu.main]]
+    name = "About"
+    url = "page/about/"
+    weight = 3
+#This entry pulls from: content/page/about.md
+
+
+
+
+[[menu.main]]
+    identifier = "posts"
+    name = "Posts"
+    weight = 2
+
+#Add new posts here.
+#Replace the examples with your first two posts.
+[[menu.main]]
+    parent = "posts"
+    name = "Name of First Post"
+    url = "post/YYYY-MM-DD-name-of-first-post"
+    weight = 1
+
+[[menu.main]]
+    parent = "posts"
+    name = "Name of Second Post"
+    url = "post/YYYY-MM-DD-name-of-second-post"
+    weight = 2
+#etc...
+#These entries pull from: content/post/filename.md
+
+
+
+
+[[menu.main]]
+    name = "Tags"
+    url = "tags"
+    weight = 3
+#This menu item tracks included tags and groups blog posts based on those tags
